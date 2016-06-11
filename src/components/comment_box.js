@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 class CommentBox extends Component {
   constructor(props) {
@@ -14,6 +16,7 @@ class CommentBox extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    this.props.saveComment(this.state.comment); // action creator
     this.setState({ comment: '' });
   }
 
@@ -31,4 +34,6 @@ class CommentBox extends Component {
   }
 }
 
-export default CommentBox;
+export default connect(null, actions)(CommentBox);
+// null because we're not bringing in any state
+// forgo the mapDispatchToProps function by using * as actions above - you have just brought in all actions
